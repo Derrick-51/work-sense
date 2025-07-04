@@ -1,6 +1,19 @@
 @backend_HostAddress = http://localhost:5043
 
-GET {{backend_HostAddress}}/weatherforecast/
+GET {{backend_HostAddress}}/Employee/
 Accept: application/json
 
 ###
+
+GET {{backend_HostAddress}}/Employee/1
+Accept: application/json
+
+###
+
+POST {{backend_HostAddress}}/Employee/
+Content-Type: application/json
+{
+    "FirstName": "Malcolm",
+    "LastName": "Middle",
+    "PhoneNumber": "2224447777"
+}
