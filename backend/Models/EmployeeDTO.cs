@@ -1,6 +1,6 @@
 namespace WorkSense.Backend.Models;
 
-public class Employee
+public class EmployeeDTO
 {
     public long Id { get; set; }
     public string FirstName { get; set; } = string.Empty;

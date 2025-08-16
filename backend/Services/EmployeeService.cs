@@ -2,47 +2,48 @@ using WorkSense.Backend.Models;
 
 namespace WorkSense.Backend.Services;
 
-public static class EmployeeService
+////
+// TODO: Change interface and class to correct methods
+public interface IEmployeeService
 {
-    static List<Employee> Employees { get; }
-    static int NextId = 4;
-    static EmployeeService()
+    public void GetAll();
+    public void GetById(long id);
+    public void Add(EmployeeDTO employeeDTO);
+    public void Update(EmployeeDTO employeeDTO);
+    public void Delete(long id);
+}
+
+public class EmployeeService : IEmployeeService
+{
+    private readonly AppDbContext dbContext;
+
+    EmployeeService(AppDbContext context)
     {
-        Employees = new List<Employee>
-        {
-            new Employee{Id = 1, FirstName = "Michael", LastName = "Jordan", PhoneNumber = "13135557293"},
-            new Employee{Id = 2, FirstName = "Cave", LastName = "Johnson", PhoneNumber = "15865554277"},
-            new Employee{Id = 3, FirstName = "Peter", LastName = "Parker", PhoneNumber = "13135559855"}
-        };
+        dbContext = context;
     }
 
-    public static List<Employee> GetAll() => Employees;
-
-    public static Employee? Get(int id) => Employees.FirstOrDefault(e => e.Id == id);
-
-    public static void Add(Employee employee)
+    public async void GetAll()
     {
-        employee.Id = NextId++;
-        Employees.Add(employee);
+
     }
 
-    public static void Update(Employee employee)
+    public async void GetById(long id)
     {
-        var index = Employees.FindIndex(e => e.Id == employee.Id);
-
-        if(index == -1)
-            return;
-
-        Employees[index] = employee;
+        
     }
 
-    public static void Delete(int id)
+    public async void Add(EmployeeDTO employeeDTO)
     {
-        Employee? employee = Get(id);
+        
+    }
 
-        if(employee is null)
-            return;
+    public async void Update(EmployeeDTO employeeDTO)
+    {
+        
+    }
 
-        Employees.Remove(employee);
+    public async void Delete(long id)
+    {
+        
     }
 }

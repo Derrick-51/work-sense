@@ -1,65 +1,85 @@
-using WorkSense.Backend.Models;
-using WorkSense.Backend.Services;
 using Microsoft.AspNetCore.Mvc;
 
+using WorkSense.Backend.Models;
+using WorkSense.Backend.Services;
+
+
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class EmployeeController : ControllerBase
 {
-    public EmployeeController()
-    {}
+    private readonly IEmployeeService employeeService;
 
-    [HttpGet]
-    public ActionResult<List<Employee>> GetAll()
+    public EmployeeController(IEmployeeService employeeService)
     {
-        return EmployeeService.GetAll();
+        this.employeeService = employeeService;
     }
 
-    [HttpGet("{id}")]
-    public ActionResult<Employee> Get(int id)
+    ////
+    // TODO: Implement with service
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<EmployeeDTO>>> GetEmployees()
     {
-        Employee? employee = EmployeeService.Get(id);
+        // return await employeeService.GetAll();
+         
+    }
 
-        if(employee is null)
+    ////
+    // TODO: Implement with service
+    [HttpGet("{id}")]
+    public async Task<ActionResult<EmployeeDTO>> GetEmployee(long id)
+    {
+        // Employee employee = employeeService.GetById(id);
+
+        if(true)
         {
             return NotFound();
         }
 
-        return employee;
     }
 
+    ////
+    // TODO: Implement with service
     [HttpPost]
-    public IActionResult Create(Employee employee)
+    public async Task<IActionResult> PostEmployee(EmployeeDTO employeeDTO)
     {
-        EmployeeService.Add(employee);
-        return CreatedAtAction(nameof(Get), new{id = employee.Id}, employee);
+        employeeService.Add(employeeDTO);
+
+        return CreatedAtAction(
+            nameof(PostEmployee),
+            new { id = employeeDTO.Id },
+            employeeDTO);
     }
 
+    ////
+    // TODO: Implement with service
     [HttpPut("{id}")]
-    public IActionResult Update(int id, Employee employee)
+    public async Task<IActionResult> PutEmployee(long id, EmployeeDTO employeeDTO)
     {
-        if(id != employee.Id)
+        if(id != employeeDTO.Id)
             return BadRequest();
 
-        Employee? foundEmployee = EmployeeService.Get(id);
+        // Employee foundEmployee = employeeService.GetById(id);
 
-        if(foundEmployee is null)
+        if(true)
             return NotFound();
 
-        EmployeeService.Update(employee);
+        // employeeService.Update(employee);
         
         return NoContent();
     }
 
+    ////
+    // TODO: Implement with service
     [HttpDelete("{id}")]
-    public IActionResult Delete(int id)
+    public async Task<IActionResult> DeleteEmployee(long id)
     {
-        Employee? foundEmployee = EmployeeService.Get(id);
+        // Employee foundEmployee = employeeService.GetById(id);
 
-        if(foundEmployee is null)
+        if(true)
             return NotFound();
 
-        EmployeeService.Delete(id);
+        // employeeService.Delete(id);
 
         return NoContent();
     }
