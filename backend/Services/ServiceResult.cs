@@ -9,13 +9,20 @@ public enum ResultError
     None
 }
 
-public class ServiceResult<T>
+public interface IServiceResult
 {
-    public ServiceResult(bool isError, T? value, ResultError? error, string? message)
+    public bool IsError { get; }
+    public ResultError Error { get; }
+
+}
+
+public class ServiceResult<T> : IServiceResult
+{
+    public ServiceResult(bool isError, T? value, ResultError error, string message)
     {
         Value = value;
-        Message = message ?? string.Empty;
-        Error = error ?? ResultError.None;
+        Message = message;
+        Error = error;
     }
 
     public bool IsError { get; }
@@ -25,11 +32,36 @@ public class ServiceResult<T>
 
     public static ServiceResult<T> Success(T value)
     {
-        return new ServiceResult<T>(false, value, null, null);
+        return new ServiceResult<T>(false, value, ResultError.None, string.Empty);
     }
 
     public static ServiceResult<T> Failure(ResultError error, string message)
     {
         return new ServiceResult<T>(true, default(T), error, message);
+    }
+}
+
+public class ServiceResult : IServiceResult
+{
+    public ServiceResult(bool isError, ResultError error, string message)
+    {
+        IsError = isError;
+        Message = message;
+        Error = error;
+
+    }
+
+    public bool IsError { get; }
+    public string Message { get; }
+    public ResultError Error { get; }
+
+    public static ServiceResult Success()
+    {
+        return new ServiceResult(false, ResultError.None, string.Empty);
+    }
+
+    public static ServiceResult Failure(ResultError error, string message)
+    {
+        return new ServiceResult(true, error, message);
     }
 }
