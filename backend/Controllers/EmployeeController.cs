@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 using WorkSense.Backend.Models;
 using WorkSense.Backend.Services;
+using WorkSense.Backend.Services.Results;
 
 
 [ApiController]
@@ -18,10 +20,25 @@ public class EmployeeController : ControllerBase
     ////
     // TODO: Implement with service
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<EmployeeDTO>>> GetEmployees()
+    public async Task<ActionResult<List<EmployeeDTO>>> GetEmployees()
     {
-        // return await employeeService.GetAll();
-         
+        ServiceResult<List<Employee>> result = await employeeService.GetAll();
+
+        if (result.IsError)
+        {
+            switch (result.Error)
+            {
+                case ResultError.NotFound:
+                    return NotFound();
+                default:
+                    return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+        // Retrieved DbSet should not be null List<null>
+        List<Employee> employees = result.Value;
+
+        return Ok(employees);
     }
 
     ////
@@ -29,57 +46,79 @@ public class EmployeeController : ControllerBase
     [HttpGet("{id}")]
     public async Task<ActionResult<EmployeeDTO>> GetEmployee(long id)
     {
-        // Employee employee = employeeService.GetById(id);
+        ServiceResult<Employee> result = await employeeService.GetById(id);
 
-        if(true)
+        if (result.IsError)
         {
-            return NotFound();
+            switch (result.Error)
+            {
+                case ResultError.NotFound:
+                    return NotFound();
+                default:
+                    return StatusCode(StatusCodes.Status500InternalServerError);
+            }
         }
 
+        return Ok(result.Value);
     }
 
     ////
-    // TODO: Implement with service
+    // POST
     [HttpPost]
     public async Task<IActionResult> PostEmployee(EmployeeDTO employeeDTO)
     {
-        employeeService.Add(employeeDTO);
+        ServiceResult<Employee> result = await employeeService.Add(employeeDTO);
+
+        if (!result.IsError)
+        {
+            switch (result.Error)
+            {
+                case ResultError.BadRequest:
+                    return BadRequest();
+                default:
+                    return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
 
         return CreatedAtAction(
-            nameof(PostEmployee),
-            new { id = employeeDTO.Id },
-            employeeDTO);
+                    nameof(PostEmployee),
+                    new { id = employeeDTO.Id },
+                    employeeDTO);
     }
 
     ////
-    // TODO: Implement with service
+    // PUT
     [HttpPut("{id}")]
     public async Task<IActionResult> PutEmployee(long id, EmployeeDTO employeeDTO)
     {
-        if(id != employeeDTO.Id)
+        if (id != employeeDTO.Id)
             return BadRequest();
 
-        // Employee foundEmployee = employeeService.GetById(id);
+        ServiceResult<Employee> result = await employeeService.Update(employeeDTO);
 
-        if(true)
-            return NotFound();
+        if (result.IsError)
+        {
+            switch (result.Error)
+            {
+                case ResultError.NotFound:
+                    return NotFound();
+                default:
+                    return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
 
-        // employeeService.Update(employee);
-        
         return NoContent();
     }
 
     ////
-    // TODO: Implement with service
+    // DELETE
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteEmployee(long id)
     {
-        // Employee foundEmployee = employeeService.GetById(id);
+        ServiceResult result = await employeeService.Delete(id);
 
-        if(true)
-            return NotFound();
-
-        // employeeService.Delete(id);
+        if (result.IsError)
+            return StatusCode(StatusCodes.Status500InternalServerError);
 
         return NoContent();
     }

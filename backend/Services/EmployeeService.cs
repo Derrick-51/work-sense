@@ -6,15 +6,13 @@ using WorkSense.Backend.Services.Results;
 
 namespace WorkSense.Backend.Services;
 
-////
-// TODO: Change interface and class to correct methods
 public interface IEmployeeService
 {
     public Task<ServiceResult<List<Employee>>> GetAll();
     public Task<ServiceResult<Employee>> GetById(long id);
     public Task<ServiceResult<Employee>> Add(EmployeeDTO employeeDTO);
     public Task<ServiceResult<Employee>> Update(EmployeeDTO employeeDTO);
-    public void Delete(long id);
+    public Task<ServiceResult> Delete(long id);
 }
 
 public class EmployeeService : IEmployeeService
@@ -32,10 +30,11 @@ public class EmployeeService : IEmployeeService
     {
         List<Employee> employees = await dbContext.Employees.ToListAsync();
 
-        if (employees is null)
+        if (employees.Count == 0)
         {
             return ServiceResult<List<Employee>>.Failure(ResultError.NotFound, "No Employees found.");
         }
+        
         return ServiceResult<List<Employee>>.Success(employees);
     }
 
@@ -88,10 +87,12 @@ public class EmployeeService : IEmployeeService
 
     ////
     // DELETE
-    public async void Delete(long id)
+    public async Task<ServiceResult> Delete(long id)
     {
         await dbContext.Employees
             .Where(e => e.Id == id)
             .ExecuteDeleteAsync();
+
+        return ServiceResult.Success();
     }
 }
