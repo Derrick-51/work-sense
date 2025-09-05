@@ -19,7 +19,7 @@ public class EmployeeService : IEmployeeService
 {
     private readonly AppDbContext dbContext;
 
-    EmployeeService(AppDbContext context)
+    public EmployeeService(AppDbContext context)
     {
         dbContext = context;
     }
@@ -34,7 +34,7 @@ public class EmployeeService : IEmployeeService
         {
             return ServiceResult<List<Employee>>.Failure(ResultError.NotFound, "No Employees found.");
         }
-        
+
         return ServiceResult<List<Employee>>.Success(employees);
     }
 
