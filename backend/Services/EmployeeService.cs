@@ -55,12 +55,8 @@ public class EmployeeService : IEmployeeService
     // ADD
     public async Task<ServiceResult<Employee>> Add(EmployeeDTO employeeDTO)
     {
-        Employee newEmployee = new Employee
-        {
-            FirstName = employeeDTO.FirstName,
-            LastName = employeeDTO.LastName,
-            PhoneNumber = employeeDTO.PhoneNumber
-        };
+        Employee newEmployee = new Employee();
+        newEmployee.UpdateWithDTO(employeeDTO);
 
         dbContext.Employees.Add(newEmployee);
         await dbContext.SaveChangesAsync();
