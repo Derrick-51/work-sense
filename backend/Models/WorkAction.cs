@@ -8,7 +8,7 @@ public class WorkAction
     public long Id { get; set; }
 
     [Required]
-    public string Description { get; set; }
+    public string Description { get; set; } = string.Empty;
 
     public DateTime Timestamp { get; set; } = DateTime.Now;
 
@@ -17,10 +17,10 @@ public class WorkAction
     public Decimal PayRate { get; set; } = 0.0m;
 
     // Conditional field handled by frontend
-    public string? ContractorName { get; set; } = string.Empty;
+    public string? ContractorName { get; set; }
 
     [Required]
-    public WorkOrder WorkOrder { get; set; }
+    public WorkOrder WorkOrder { get; set; } = null!;
 
     public Equipment? Equipment { get; set; }
 
@@ -29,7 +29,7 @@ public class WorkAction
 
     // In-house database record for work that is not contracted
     [Required]
-    public Company Company { get; set; }
+    public Company Company { get; set; } = null!;
 
     public ICollection<SupplyOrder> SupplyOrders { get; } = new List<SupplyOrder>();
 }

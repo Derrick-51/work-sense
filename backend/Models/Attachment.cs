@@ -5,8 +5,9 @@ namespace WorkSense.Backend.Models;
 public class Attachment
 {
     [Key]
-    public string Url { get; set; }
+    [Required]
+    public string Url { get; set; } = string.Empty;
 
     [Required]
-    public WorkOrder WorkOrder { get; set; }
+    public WorkOrder WorkOrder { get; set; } = null!;
 }

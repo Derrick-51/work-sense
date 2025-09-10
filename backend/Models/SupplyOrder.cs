@@ -12,5 +12,5 @@ public class SupplyOrder
     public string PartName { get; set; } = string.Empty;
 
     [Required]
-    public WorkAction WorkAction { get; set; }
+    public WorkAction WorkAction { get; set; } = null!;
 }

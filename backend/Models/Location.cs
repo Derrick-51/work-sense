@@ -6,7 +6,7 @@ public class Location
 {
     [Key]
     public long Id { get; set; }
-    
+
     [Required]
-    public Building Building { get; set; }
+    public Building Building { get; set; } = null!;
 }

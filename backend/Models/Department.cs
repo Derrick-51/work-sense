@@ -6,7 +6,7 @@ public class Department
 {
     [Key]
     [Required]
-    public string Name { get; set; }
+    public string Name { get; set; } = string.Empty;
 
     public ICollection<JobType> JobTypes { get; } = new List<JobType>();
 }

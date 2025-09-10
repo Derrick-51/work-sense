@@ -8,7 +8,7 @@ public class WorkOrder
     public long Id { get; set; }
 
     [Required]
-    public string Description { get; set; }
+    public string Description { get; set; } = string.Empty;
 
     public DateTime RequestTimeStamp { get; set; } = DateTime.Now;
 
@@ -17,16 +17,16 @@ public class WorkOrder
     public bool IsOpen { get; set; } = true;
 
     [Required]
-    public Employee Requester { get; set; }
+    public Employee Requester { get; set; } = null!;
 
     // Placeholder database record for unassigned work orders
-    public Employee Assignee { get; set; }
+    public Employee Assignee { get; set; } = null!;
 
     [Required]
-    public JobType JobType { get; set; }
+    public JobType JobType { get; set; } = null!;
 
     [Required]
-    public Location Location { get; set; }
+    public Location Location { get; set; } = null!;
 
     public ICollection<WorkAction> WorkActions { get; } = new List<WorkAction>();
 
