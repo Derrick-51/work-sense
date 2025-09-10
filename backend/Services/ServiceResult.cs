@@ -20,6 +20,7 @@ public class ServiceResult<T> : IServiceResult
 {
     public ServiceResult(bool isError, T? value, ResultError error, string message)
     {
+        IsError = isError;
         Value = value;
         Message = message;
         Error = error;
