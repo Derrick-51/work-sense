@@ -35,7 +35,7 @@ public class EmployeeController : ControllerBase
             }
         }
 
-        // Retrieved DbSet should not be null List<null>
+        // Null value only occurs as error and is handled
         List<Employee> employees = result.Value;
 
         return Ok(employees);
@@ -69,7 +69,7 @@ public class EmployeeController : ControllerBase
     {
         ServiceResult<Employee> result = await employeeService.Add(employeeDTO);
 
-        if (!result.IsError)
+        if (result.IsError)
         {
             switch (result.Error)
             {
