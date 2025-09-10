@@ -18,7 +18,7 @@ public class EmployeeController : ControllerBase
     }
 
     ////
-    // TODO: Implement with service
+    // GET ALL
     [HttpGet]
     public async Task<ActionResult<List<EmployeeDTO>>> GetEmployees()
     {
@@ -42,7 +42,7 @@ public class EmployeeController : ControllerBase
     }
 
     ////
-    // TODO: Implement with service
+    // GET ONE (ID)
     [HttpGet("{id}")]
     public async Task<ActionResult<EmployeeDTO>> GetEmployee(long id)
     {
