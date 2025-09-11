@@ -30,13 +30,15 @@ public class EmployeeController : ControllerBase
             {
                 case ResultError.NotFound:
                     return NotFound();
+                case ResultError.NullReturnValue:
+                    // TODO: Log null value error
                 default:
                     return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
 
-        // Null value only occurs as error and is handled
-        List<Employee> employees = result.Value;
+        // Null value only occurs as error and is handled above
+        List<Employee> employees = result.Value!;
 
         return Ok(employees);
     }
@@ -54,12 +56,17 @@ public class EmployeeController : ControllerBase
             {
                 case ResultError.NotFound:
                     return NotFound();
+                case ResultError.NullReturnValue:
+                    // TODO: Log null value error
                 default:
                     return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
 
-        return Ok(result.Value);
+        // Null value only occurs as error and is handled above
+        Employee employee = result.Value!;
+
+        return Ok(employee);
     }
 
     ////

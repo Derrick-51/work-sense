@@ -6,6 +6,7 @@ public enum ResultError
 {
     NotFound,
     BadRequest,
+    NullReturnValue,
     None
 }
 
@@ -33,6 +34,9 @@ public class ServiceResult<T> : IServiceResult
 
     public static ServiceResult<T> Success(T value)
     {
+        if (value is null)
+            return Failure(ResultError.NullReturnValue, "Result contains null value");
+
         return new ServiceResult<T>(false, value, ResultError.None, string.Empty);
     }
 
