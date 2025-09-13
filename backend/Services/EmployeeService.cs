@@ -17,18 +17,18 @@ public interface IEmployeeService
 
 public class EmployeeService : IEmployeeService
 {
-    private readonly AppDbContext dbContext;
+    private readonly AppDbContext DbContext;
 
-    public EmployeeService(AppDbContext context)
+    public EmployeeService(AppDbContext dbContext)
     {
-        dbContext = context;
+        DbContext = dbContext;
     }
 
     ////
     // GET ALL
     public async Task<ServiceResult<List<Employee>>> GetAll()
     {
-        List<Employee> employees = await dbContext.Employees.ToListAsync();
+        List<Employee> employees = await DbContext.Employees.ToListAsync();
 
         if (employees.Count == 0)
         {
@@ -42,7 +42,7 @@ public class EmployeeService : IEmployeeService
     // GET ONE (ID)
     public async Task<ServiceResult<Employee>> GetById(long id)
     {
-        Employee? foundEmployee = await dbContext.Employees.FindAsync(id);
+        Employee? foundEmployee = await DbContext.Employees.FindAsync(id);
 
         if (foundEmployee == null)
         {
@@ -58,8 +58,8 @@ public class EmployeeService : IEmployeeService
         Employee newEmployee = new Employee();
         newEmployee.UpdateWithDTO(employeeDTO);
 
-        dbContext.Employees.Add(newEmployee);
-        await dbContext.SaveChangesAsync();
+        DbContext.Employees.Add(newEmployee);
+        await DbContext.SaveChangesAsync();
 
         return ServiceResult<Employee>.Success(newEmployee);
     }
@@ -68,7 +68,7 @@ public class EmployeeService : IEmployeeService
     // UPDATE
     public async Task<ServiceResult<Employee>> Update(EmployeeDTO employeeDTO)
     {
-        Employee? existingEmployee = await dbContext.Employees.FindAsync(employeeDTO.Id);
+        Employee? existingEmployee = await DbContext.Employees.FindAsync(employeeDTO.Id);
 
         if (existingEmployee is null)
         {
@@ -76,7 +76,7 @@ public class EmployeeService : IEmployeeService
         }
 
         existingEmployee.UpdateWithDTO(employeeDTO);
-        await dbContext.SaveChangesAsync();
+        await DbContext.SaveChangesAsync();
 
         return ServiceResult<Employee>.Success(existingEmployee);
     }
@@ -85,7 +85,7 @@ public class EmployeeService : IEmployeeService
     // DELETE
     public async Task<ServiceResult> Delete(long id)
     {
-        await dbContext.Employees
+        await DbContext.Employees
             .Where(e => e.Id == id)
             .ExecuteDeleteAsync();
 
