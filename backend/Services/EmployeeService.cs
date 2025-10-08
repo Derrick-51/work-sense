@@ -6,16 +6,7 @@ using WorkSense.Backend.Services.Results;
 
 namespace WorkSense.Backend.Services;
 
-public interface IEmployeeService
-{
-    public Task<ServiceResult<List<Employee>>> GetAll();
-    public Task<ServiceResult<Employee>> GetById(long id);
-    public Task<ServiceResult<Employee>> Add(Employee employee);
-    public Task<ServiceResult<Employee>> Update(Employee employee);
-    public Task<ServiceResult> Delete(long id);
-}
-
-public class EmployeeService : IEmployeeService
+public class EmployeeService : ICRUDService<Employee, long>
 {
     private readonly AppDbContext DbContext;
 
@@ -40,7 +31,7 @@ public class EmployeeService : IEmployeeService
 
     ////
     // GET ONE (ID)
-    public async Task<ServiceResult<Employee>> GetById(long id)
+    public async Task<ServiceResult<Employee>> GetByKey(long id)
     {
         Employee? foundEmployee = await DbContext.Employees.FindAsync(id);
 
@@ -53,7 +44,7 @@ public class EmployeeService : IEmployeeService
 
     ////
     // ADD
-    public async Task<ServiceResult<Employee>> Add(Employee employee)
+    public async Task<ServiceResult<Employee>> Post(Employee employee)
     {
         Employee newEmployee = new Employee();
         newEmployee.UpdateFields(employee);
@@ -66,7 +57,7 @@ public class EmployeeService : IEmployeeService
 
     ////
     // UPDATE
-    public async Task<ServiceResult<Employee>> Update(Employee employee)
+    public async Task<ServiceResult<Employee>> Put(Employee employee)
     {
         Employee? existingEmployee = await DbContext.Employees.FindAsync(employee.Id);
 
@@ -83,7 +74,7 @@ public class EmployeeService : IEmployeeService
 
     ////
     // DELETE
-    public async Task<ServiceResult> Delete(long id)
+    public async Task<IServiceResult> Delete(long id)
     {
         await DbContext.Employees
             .Where(e => e.Id == id)
