@@ -10,8 +10,8 @@ public interface IEmployeeService
 {
     public Task<ServiceResult<List<Employee>>> GetAll();
     public Task<ServiceResult<Employee>> GetById(long id);
-    public Task<ServiceResult<Employee>> Add(EmployeeDTO employeeDTO);
-    public Task<ServiceResult<Employee>> Update(EmployeeDTO employeeDTO);
+    public Task<ServiceResult<Employee>> Add(Employee employee);
+    public Task<ServiceResult<Employee>> Update(Employee employee);
     public Task<ServiceResult> Delete(long id);
 }
 
@@ -53,10 +53,10 @@ public class EmployeeService : IEmployeeService
 
     ////
     // ADD
-    public async Task<ServiceResult<Employee>> Add(EmployeeDTO employeeDTO)
+    public async Task<ServiceResult<Employee>> Add(Employee employee)
     {
         Employee newEmployee = new Employee();
-        newEmployee.UpdateWithDTO(employeeDTO);
+        newEmployee.UpdateFields(employee);
 
         DbContext.Employees.Add(newEmployee);
         await DbContext.SaveChangesAsync();
@@ -66,16 +66,16 @@ public class EmployeeService : IEmployeeService
 
     ////
     // UPDATE
-    public async Task<ServiceResult<Employee>> Update(EmployeeDTO employeeDTO)
+    public async Task<ServiceResult<Employee>> Update(Employee employee)
     {
-        Employee? existingEmployee = await DbContext.Employees.FindAsync(employeeDTO.Id);
+        Employee? existingEmployee = await DbContext.Employees.FindAsync(employee.Id);
 
         if (existingEmployee is null)
         {
             return ServiceResult<Employee>.Failure(ResultError.NotFound, "Employee not found.");
         }
 
-        existingEmployee.UpdateWithDTO(employeeDTO);
+        existingEmployee.UpdateFields(employee);
         await DbContext.SaveChangesAsync();
 
         return ServiceResult<Employee>.Success(existingEmployee);

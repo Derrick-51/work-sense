@@ -22,12 +22,25 @@ public class Employee
     [Required]
     public Department Department { get; set; } = null!;
 
-    public void UpdateWithDTO(EmployeeDTO employeeDTO)
+    public Employee() { }
+
+    public Employee(Employee employee)
     {
-        FirstName = employeeDTO.FirstName;
-        LastName = employeeDTO.LastName;
-        PhoneNumber = employeeDTO.PhoneNumber;
-        Campus = employeeDTO.Campus;
-        Department = employeeDTO.Department;
+        Id = employee.Id;
+        FirstName = employee.FirstName;
+        LastName = employee.LastName;
+        PhoneNumber = employee.PhoneNumber;
+        Campus = employee.Campus;
+        Department = employee.Department;
+    }
+
+    // Update all non-key fields
+    public void UpdateFields(Employee employee)
+    {
+        FirstName = employee.FirstName;
+        LastName = employee.LastName;
+        PhoneNumber = employee.PhoneNumber;
+        Campus = employee.Campus;
+        Department = employee.Department;
     }
 }
