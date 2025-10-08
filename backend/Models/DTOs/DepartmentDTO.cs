@@ -4,15 +4,23 @@ namespace WorkSense.Backend.Models;
 
 public class DepartmentDTO
 {
+    [Key]
+    public long Id { get; set; }
+
+    [Required]
+    public string Name { get; set; } = string.Empty;
+
     public DepartmentDTO(Department department)
     {
         Id = department.Id;
         Name = department.Name;
     }
-
-    [Key]
-    public long Id { get; set; }
     
-    [Required]
-    public string Name { get; set; } = string.Empty;
+    public static implicit operator Department(DepartmentDTO dto)
+    {
+        Department department = new Department();
+        department.Id = dto.Id;
+        department.Name = dto.Name;
+        return department;
+    }
 }

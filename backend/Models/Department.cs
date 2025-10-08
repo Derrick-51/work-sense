@@ -4,17 +4,6 @@ namespace WorkSense.Backend.Models;
 
 public class Department
 {
-    
-    public Department(Department department)
-    {
-        Id = department.Id;
-        Name = department.Name;
-    }
-    public Department(DepartmentDTO departmentDTO)
-    {
-        Name = departmentDTO.Name;
-    }
-
     [Key]
     public long Id { get; set; }
 
@@ -23,8 +12,22 @@ public class Department
 
     public ICollection<JobType> JobTypes { get; } = new List<JobType>();
 
-    public void UpdateWithDTO(DepartmentDTO departmentDTO)
+    public Department() {}
+
+    public Department(Department department)
+    {
+        Id = department.Id;
+        Name = department.Name;
+    }
+
+    public Department(DepartmentDTO departmentDTO)
     {
         Name = departmentDTO.Name;
+    }
+
+    // Update all non-key fields
+    public void UpdateFields(Department department)
+    {
+        Name = department.Name;
     }
 }
