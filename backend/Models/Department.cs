@@ -2,21 +2,26 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WorkSense.Backend.Models;
 
-public class Department
+public class Department : BaseModel<Department, long>
 {
-    [Key]
-    public long Id { get; set; }
-
+    //
+    // PROPERTIES
+    //
+    
     [Required]
     public string Name { get; set; } = string.Empty;
 
     public ICollection<JobType> JobTypes { get; } = new List<JobType>();
 
-    public Department() {}
+    //
+    // CONSTRUCTORS
+    //
+
+    public Department() { }
 
     public Department(Department department)
     {
-        Id = department.Id;
+        Key = department.Key;
         Name = department.Name;
     }
 
@@ -25,9 +30,14 @@ public class Department
         Name = departmentDTO.Name;
     }
 
+    //
+    // METHODS
+    //
+
     // Update all non-key fields
-    public void UpdateFields(Department department)
+    public override void UpdateFields(Department department)
     {
+        Key = department.Key;
         Name = department.Name;
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections;
 using Microsoft.EntityFrameworkCore;
 
 namespace WorkSense.Backend.Models;
@@ -6,7 +7,28 @@ public class AppDbContext : DbContext
 {
     public AppDbContext(DbContextOptions options)
         : base(options)
-    { }
+    {
+        Collections = new Hashtable
+        {
+            { typeof(Employee), Employees },
+            { typeof(Campus), Campuses },
+            { typeof(Building), Buildings },
+            { typeof(Location), Locations },
+            { typeof(Department), Departments },
+            { typeof(JobType), JobTypes },
+            { typeof(Equipment), Equipment },
+            { typeof(Company), Companies },
+            { typeof(WorkOrder), WorkOrders },
+            { typeof(WorkAction), WorkActions },
+            { typeof(SupplyOrder), SupplyOrders },
+            { typeof(Attachment), Attachments },
+        };
+    }
+
+
+    // Lookup table to avoid performance hit of using
+    // reflection to retrieve DbSets programatically
+    private Hashtable Collections { get; }
 
     public DbSet<Employee> Employees { get; set; }
 
@@ -31,4 +53,13 @@ public class AppDbContext : DbContext
     public DbSet<SupplyOrder> SupplyOrders { get; set; }
 
     public DbSet<Attachment> Attachments { get; set; }
+
+
+    public DbSet<TEntity> GetCollection<TEntity>() where TEntity : class
+    {
+        // Resulting DbSet is should not be null
+        DbSet<TEntity> collection = (DbSet<TEntity>) Collections[typeof(TEntity)]!;
+
+        return collection;
+    }
 }

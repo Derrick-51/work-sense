@@ -13,7 +13,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Inject custom services
-builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+builder.Services.AddScoped<EmployeeService, EmployeeService>();
+builder.Services.AddScoped<DepartmentService, DepartmentService>();
+builder.Services.AddScoped<CampusService, CampusService>();
 
 // Database connection configuration
 // Temporary connection string for development

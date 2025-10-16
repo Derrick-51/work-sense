@@ -2,9 +2,9 @@ using WorkSense.Backend.Models;
 
 namespace WorkSense.Backend.Services;
 
-public class DepartmentService : CRUDService<Department, long>
+public class CampusService : CRUDService<Campus, long>
 {
-    public DepartmentService(AppDbContext dbContext)
+    public CampusService(AppDbContext dbContext)
     : base(dbContext)
     { }
 

@@ -2,10 +2,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WorkSense.Backend.Models;
 
-public class Campus
+public class Campus : BaseModel<Campus, long>
 {
-    [Key]
-    public long Id { get; set; }
+    //
+    // PROPERTIES
+    //
 
     [Required]
     public string Name { get; set; } = string.Empty;
@@ -14,4 +15,28 @@ public class Campus
     public string Address { get; set; } = string.Empty;
 
     public ICollection<Building> buildings { get; } = new List<Building>();
+
+    //
+    // CONSTRUCTORS
+    //
+
+    public Campus() { }
+
+    public Campus(Campus campus)
+    {
+        Key = campus.Key;
+        Name = campus.Name;
+        Address = campus.Address;
+    }
+
+    //
+    // METHODS
+    //
+
+    public override void UpdateFields(Campus campus)
+    {
+        Key = campus.Key;
+        Name = campus.Name;
+        Address = campus.Address;
+    }
 }

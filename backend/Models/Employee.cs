@@ -2,11 +2,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WorkSense.Backend.Models;
 
-public class Employee
+public class Employee : BaseModel<Employee, long>
 {
-    [Key]
-    public long Id { get; set; }
-
+    //
+    // PROPERTIES
+    //
+    
     [Required]
     public string FirstName { get; set; } = string.Empty;
 
@@ -22,11 +23,15 @@ public class Employee
     [Required]
     public Department Department { get; set; } = null!;
 
+    //
+    // CONSTRUCTORS
+    //
+
     public Employee() { }
 
     public Employee(Employee employee)
     {
-        Id = employee.Id;
+        Key = employee.Key;
         FirstName = employee.FirstName;
         LastName = employee.LastName;
         PhoneNumber = employee.PhoneNumber;
@@ -34,9 +39,14 @@ public class Employee
         Department = employee.Department;
     }
 
+    //
+    // METHODS
+    //
+
     // Update all non-key fields
-    public void UpdateFields(Employee employee)
+    public override void UpdateFields(Employee employee)
     {
+        Key = employee.Key;
         FirstName = employee.FirstName;
         LastName = employee.LastName;
         PhoneNumber = employee.PhoneNumber;
