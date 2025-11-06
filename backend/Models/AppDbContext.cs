@@ -1,4 +1,5 @@
 using System.Collections;
+using Microsoft.AspNetCore.Mvc.TagHelpers.Cache;
 using Microsoft.EntityFrameworkCore;
 
 namespace WorkSense.Backend.Models;
@@ -58,8 +59,6 @@ public class AppDbContext : DbContext
     public DbSet<TEntity> GetCollection<TEntity>() where TEntity : class
     {
         // Resulting DbSet is should not be null
-        DbSet<TEntity> collection = (DbSet<TEntity>) Collections[typeof(TEntity)]!;
-
-        return collection;
+        return (DbSet<TEntity>)Collections[typeof(TEntity)]!;
     }
 }

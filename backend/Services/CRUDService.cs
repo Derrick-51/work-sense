@@ -44,7 +44,7 @@ public class CRUDService<TEntity, TKey> where TEntity : BaseModel<TEntity,TKey>,
         {
             return ServiceResult<TEntity>
                 .Failure(ResultError.NotFound
-                    , $"{typeof(TEntity).Name} with key: {key} not found");
+                    , $"{nameof(TEntity)} with key: {key} not found");
         }
 
         return ServiceResult<TEntity>.Success(entity);
