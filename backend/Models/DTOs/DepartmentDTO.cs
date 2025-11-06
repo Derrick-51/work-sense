@@ -2,25 +2,38 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WorkSense.Backend.Models;
 
-public class DepartmentDTO
+public class DepartmentDTO : ITransferObject<Department, long, DepartmentDTO>
 {
     [Key]
-    public long Id { get; set; }
+    public long Key { get; set; }
 
     [Required]
     public string Name { get; set; } = string.Empty;
 
+    public DepartmentDTO() { }
+
     public DepartmentDTO(Department department)
     {
-        Id = department.Id;
+        Key = department.Key;
         Name = department.Name;
     }
-    
+
     public static implicit operator Department(DepartmentDTO dto)
     {
         Department department = new Department();
-        department.Id = dto.Id;
+        department.Key = dto.Key;
         department.Name = dto.Name;
         return department;
+    }
+
+    public static DepartmentDTO CreateWithEntity(Department department)
+    {
+        return new DepartmentDTO(department);
+    }
+    
+    public void UpdateEntity(Department department)
+    {
+        department.Key = Key;
+        department.Name = Name;
     }
 }

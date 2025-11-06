@@ -2,10 +2,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WorkSense.Backend.Models;
 
-public class EmployeeDTO
+public class EmployeeDTO : ITransferObject<Employee, long, EmployeeDTO>
 {
     [Key]
-    public long Id { get; set; }
+    public long Key { get; set; }
 
     [Required]
     public string FirstName { get; set; } = string.Empty;
@@ -21,9 +21,11 @@ public class EmployeeDTO
     [Required]
     public Department Department { get; set; } = null!;
 
+    public EmployeeDTO() { }
+
     public EmployeeDTO(Employee employee)
     {
-        Id = employee.Id;
+        Key = employee.Key;
         FirstName = employee.FirstName;
         LastName = employee.LastName;
         PhoneNumber = employee.PhoneNumber;
@@ -40,5 +42,20 @@ public class EmployeeDTO
         employee.Campus = dto.Campus;
         employee.Department = dto.Department;
         return employee;
+    }
+
+    public static EmployeeDTO CreateWithEntity(Employee employee)
+    {
+        return new EmployeeDTO(employee);
+    }
+
+    public void UpdateEntity(Employee employee)
+    {
+        employee.Key = Key;
+        employee.FirstName = FirstName;
+        employee.LastName = LastName;
+        employee.PhoneNumber = PhoneNumber;
+        employee.Campus = Campus;
+        employee.Department = Department;
     }
 }
