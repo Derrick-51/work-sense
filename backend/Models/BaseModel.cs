@@ -8,5 +8,5 @@ public abstract class BaseModel<TEntity, TKey> : IBaseModel<TEntity, TKey>
     [Key]
     public TKey? Key { get; set; }
 
-    public abstract void UpdateFields(TEntity entity);
+    public abstract void UpdateFieldsUsing(TEntity entity);
 }

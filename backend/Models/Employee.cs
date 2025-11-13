@@ -31,20 +31,14 @@ public class Employee : BaseModel<Employee, long>
 
     public Employee(Employee employee)
     {
-        Key = employee.Key;
-        FirstName = employee.FirstName;
-        LastName = employee.LastName;
-        PhoneNumber = employee.PhoneNumber;
-        Campus = employee.Campus;
-        Department = employee.Department;
+        UpdateFieldsUsing(employee);
     }
 
     //
     // METHODS
     //
 
-    // Update all non-key fields
-    public override void UpdateFields(Employee employee)
+    public override void UpdateFieldsUsing(Employee employee)
     {
         Key = employee.Key;
         FirstName = employee.FirstName;

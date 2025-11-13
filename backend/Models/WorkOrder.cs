@@ -2,11 +2,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WorkSense.Backend.Models;
 
-public class WorkOrder
+public class WorkOrder : BaseModel<WorkOrder, long>
 {
-    [Key]
-    public long Id { get; set; }
-
+    //
+    // PROPERTIES
+    //
+    
     [Required]
     public string Description { get; set; } = string.Empty;
 
@@ -31,4 +32,32 @@ public class WorkOrder
     public ICollection<WorkAction> WorkActions { get; } = new List<WorkAction>();
 
     public ICollection<Attachment> Attachments { get; } = new List<Attachment>();
+
+    //
+    // CONSTRUCTORS
+    //
+
+    public WorkOrder() {}
+
+    public WorkOrder(WorkOrder workOrder) 
+    {
+        UpdateFieldsUsing(workOrder);
+    }
+
+    //
+    // METHODS
+    //
+
+    public override void UpdateFieldsUsing(WorkOrder workOrder)
+    {
+        Key = workOrder.Key;
+        Description = workOrder.Description;
+        RequestTimeStamp = workOrder.RequestTimeStamp;
+        DueTimeStamp = workOrder.DueTimeStamp;
+        IsOpen = workOrder.IsOpen;
+        Requester = workOrder.Requester;
+        Assignee = workOrder.Assignee;
+        JobType = workOrder.JobType;
+        Location = workOrder.Location;
+    }
 }

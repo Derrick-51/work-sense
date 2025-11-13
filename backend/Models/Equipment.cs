@@ -2,11 +2,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WorkSense.Backend.Models;
 
-public class Equipment
+public class Equipment : BaseModel<Equipment, long>
 {
-    [Key]
-    public long Id { get; set; }
-
+    //
+    // PROPERTIES
+    //
+    
     [Required]
     public string Name { get; set; } = string.Empty;
 
@@ -19,4 +20,29 @@ public class Equipment
 
     [Required]
     public Location Location { get; set; } = null!;
+
+    //
+    // CONSTRUCTORS
+    //
+
+    public Equipment() {}
+
+    public Equipment(Equipment equipment) 
+    {
+        UpdateFieldsUsing(equipment);
+    }
+
+    //
+    // METHODS
+    //
+
+    public override void UpdateFieldsUsing(Equipment equipment)
+    {
+        Key = equipment.Key;
+        Name = equipment.Name;
+        Manufacturer = equipment.Manufacturer;
+        Serial = equipment.Serial;
+        InstallDate = equipment.InstallDate;
+        Location = equipment.Location;
+    }
 }

@@ -24,16 +24,14 @@ public class Campus : BaseModel<Campus, long>
 
     public Campus(Campus campus)
     {
-        Key = campus.Key;
-        Name = campus.Name;
-        Address = campus.Address;
+        UpdateFieldsUsing(campus);
     }
 
     //
     // METHODS
     //
 
-    public override void UpdateFields(Campus campus)
+    public override void UpdateFieldsUsing(Campus campus)
     {
         Key = campus.Key;
         Name = campus.Name;

@@ -56,7 +56,7 @@ public class CRUDService<TEntity, TKey> where TEntity : BaseModel<TEntity,TKey>,
     public async Task<ServiceResult<TEntity>> Post(TEntity entity)
     {
         TEntity newEntity = new TEntity();
-        newEntity.UpdateFields(entity);
+        newEntity.UpdateFieldsWith(entity);
 
         // Store and return new entity
         EntityEntry<TEntity> newEntityEntry = await DbContext
@@ -65,7 +65,7 @@ public class CRUDService<TEntity, TKey> where TEntity : BaseModel<TEntity,TKey>,
         await DbContext.SaveChangesAsync();
 
         TEntity createdEntity = new TEntity();
-        createdEntity.UpdateFields(newEntityEntry.Entity);
+        createdEntity.UpdateFieldsWith(newEntityEntry.Entity);
 
         return ServiceResult<TEntity>.Success(createdEntity);
     }
@@ -86,7 +86,7 @@ public class CRUDService<TEntity, TKey> where TEntity : BaseModel<TEntity,TKey>,
                     , $"{typeof(TEntity).Name} with key: {entity.Key} not found.");
         }
 
-        existingEntity.UpdateFields(entity);
+        existingEntity.UpdateFieldsWith(entity);
         await DbContext.SaveChangesAsync();
 
         return ServiceResult<TEntity>.Success(existingEntity);

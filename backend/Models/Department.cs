@@ -21,21 +21,14 @@ public class Department : BaseModel<Department, long>
 
     public Department(Department department)
     {
-        Key = department.Key;
-        Name = department.Name;
-    }
-
-    public Department(DepartmentDTO departmentDTO)
-    {
-        Name = departmentDTO.Name;
+        UpdateFieldsUsing(department);
     }
 
     //
     // METHODS
     //
 
-    // Update all non-key fields
-    public override void UpdateFields(Department department)
+    public override void UpdateFieldsUsing(Department department)
     {
         Key = department.Key;
         Name = department.Name;

@@ -4,5 +4,5 @@ namespace WorkSense.Backend.Models;
 
 public interface IBaseModel<TEntity, TKey>
 {
-    public abstract void UpdateFields(TEntity entity);
+    public abstract void UpdateFieldsUsing(TEntity entity);
 }
