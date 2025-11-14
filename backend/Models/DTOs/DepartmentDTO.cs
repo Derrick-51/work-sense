@@ -31,7 +31,7 @@ public class DepartmentDTO : ITransferObject<Department, long, DepartmentDTO>
         return new DepartmentDTO(department);
     }
     
-    public void UpdateEntity(Department department)
+    public void CopyFieldsTo(Department department)
     {
         department.Key = Key;
         department.Name = Name;

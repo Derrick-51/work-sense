@@ -49,7 +49,7 @@ public class EmployeeDTO : ITransferObject<Employee, long, EmployeeDTO>
         return new EmployeeDTO(employee);
     }
 
-    public void UpdateEntity(Employee employee)
+    public void CopyFieldsTo(Employee employee)
     {
         employee.Key = Key;
         employee.FirstName = FirstName;

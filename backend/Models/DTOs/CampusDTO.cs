@@ -36,7 +36,7 @@ public class CampusDTO : ITransferObject<Campus, long, CampusDTO>
         return new CampusDTO(campus);
     }
 
-    public void UpdateEntity(Campus campus)
+    public void CopyFieldsTo(Campus campus)
     {
         campus.Key = Key;
         campus.Name = Name;

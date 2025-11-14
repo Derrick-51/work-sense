@@ -17,7 +17,7 @@ where TEntity : BaseModel<TEntity, TKey>, new()
     ///     T newT = DTO.CreateDTO(Entity) /* Interface contract upheld */
     /// }
     /// </summary>
-    /// <param name="entity">The complete entity that the
+    /// <param name="entity">The original entity that the
     ///     DTO is based on</param>
     /// <returns>Returns a Data Transfer Object constructed
     ///     with the given entity</returns>
@@ -28,7 +28,7 @@ where TEntity : BaseModel<TEntity, TKey>, new()
     /// Gives DTO responsibility of updating entity with
     ///     its custom properties.
     /// </summary>
-    /// <param name="entity">The complete entity that the
+    /// <param name="entity">The original entity that the
     ///     DTO is based on</param>
-    public abstract void UpdateEntity(TEntity entity);
+    public abstract void CopyMembersTo(TEntity entity);
 }

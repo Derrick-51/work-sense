@@ -82,7 +82,7 @@ public abstract class CRUDController<TEntity, TKey, TRequestDTO, TResponseDTO> :
     {
         // Convert to complete model for service compatibility
         TEntity newEntity = new TEntity();
-        requestDTO.UpdateEntity(newEntity);
+        requestDTO.CopyFieldsTo(newEntity);
         
         ServiceResult<TEntity> result = await CRUDService.Post(newEntity);
 
@@ -117,11 +117,11 @@ public abstract class CRUDController<TEntity, TKey, TRequestDTO, TResponseDTO> :
 
         // Convert to Entity to ensure Key property exists
         TEntity newEntity = new TEntity();
-        requestDTO.UpdateEntity(newEntity);
+        requestDTO.CopyFieldsTo(newEntity);
 
         if (newEntity.Key is null)
         {
-            // DTO may not have key property or DTO.UpdateEntity(entity) may not
+            // DTO may not have key property or DTO.CopyFieldsTo(entity) may not
             // be updating entity key
 
             // TODO: Log null key property
