@@ -30,5 +30,5 @@ where TEntity : BaseModel<TEntity, TKey>, new()
     /// </summary>
     /// <param name="entity">The original entity that the
     ///     DTO is based on</param>
-    public abstract void CopyMembersTo(TEntity entity);
+    public abstract void CopyFieldsTo(TEntity entity);
 }

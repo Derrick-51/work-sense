@@ -15,8 +15,9 @@ public class CRUDService<TEntity, TKey> where TEntity : BaseModel<TEntity,TKey>,
         DbContext = dbContext;
     }
 
-    ////
+    //
     // GET ALL
+    //
     public async Task<ServiceResult<List<TEntity>>> GetAll()
     {
         List<TEntity> entities = await DbContext
@@ -31,8 +32,9 @@ public class CRUDService<TEntity, TKey> where TEntity : BaseModel<TEntity,TKey>,
         return ServiceResult<List<TEntity>>.Success(entities);
     }
 
-    ////
+    //
     // GET BY ID
+    //
     public async Task<ServiceResult<TEntity>> GetByKey(TKey key)
     {
         // Null when not found
@@ -56,7 +58,7 @@ public class CRUDService<TEntity, TKey> where TEntity : BaseModel<TEntity,TKey>,
     public async Task<ServiceResult<TEntity>> Post(TEntity entity)
     {
         TEntity newEntity = new TEntity();
-        newEntity.UpdateFieldsWith(entity);
+        newEntity.UpdateFieldsUsing(entity);
 
         // Store and return new entity
         EntityEntry<TEntity> newEntityEntry = await DbContext
@@ -65,7 +67,7 @@ public class CRUDService<TEntity, TKey> where TEntity : BaseModel<TEntity,TKey>,
         await DbContext.SaveChangesAsync();
 
         TEntity createdEntity = new TEntity();
-        createdEntity.UpdateFieldsWith(newEntityEntry.Entity);
+        createdEntity.UpdateFieldsUsing(newEntityEntry.Entity);
 
         return ServiceResult<TEntity>.Success(createdEntity);
     }
@@ -86,7 +88,7 @@ public class CRUDService<TEntity, TKey> where TEntity : BaseModel<TEntity,TKey>,
                     , $"{typeof(TEntity).Name} with key: {entity.Key} not found.");
         }
 
-        existingEntity.UpdateFieldsWith(entity);
+        existingEntity.UpdateFieldsUsing(entity);
         await DbContext.SaveChangesAsync();
 
         return ServiceResult<TEntity>.Success(existingEntity);
