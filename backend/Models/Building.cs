@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WorkSense.Backend.Models;
 
-public class Building : Base<Building, long>
+public class Building : BaseModel<Building, long>
 {
     //
     // PROPERTIES
