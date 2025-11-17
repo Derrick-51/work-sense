@@ -16,10 +16,10 @@ public class EmployeeDTO : ITransferObject<Employee, long, EmployeeDTO>
     public string PhoneNumber { get; set; } = string.Empty;
 
     [Required]
-    public Campus Campus { get; set; } = null!;
+    public long CampusKey { get; set; } = default;
 
     [Required]
-    public Department Department { get; set; } = null!;
+    public long DepartmentKey { get; set; } = default;
 
     public EmployeeDTO() { }
 
@@ -29,8 +29,8 @@ public class EmployeeDTO : ITransferObject<Employee, long, EmployeeDTO>
         FirstName = employee.FirstName;
         LastName = employee.LastName;
         PhoneNumber = employee.PhoneNumber;
-        Campus = employee.Campus;
-        Department = employee.Department;
+        CampusKey = employee.CampusKey;
+        DepartmentKey = employee.DepartmentKey;
     }
 
     public static implicit operator Employee(EmployeeDTO dto)
@@ -39,8 +39,8 @@ public class EmployeeDTO : ITransferObject<Employee, long, EmployeeDTO>
         employee.FirstName = dto.FirstName;
         employee.LastName = dto.LastName;
         employee.PhoneNumber = dto.PhoneNumber;
-        employee.Campus = dto.Campus;
-        employee.Department = dto.Department;
+        employee.CampusKey = dto.CampusKey;
+        employee.DepartmentKey = dto.DepartmentKey;
         return employee;
     }
 
@@ -55,7 +55,7 @@ public class EmployeeDTO : ITransferObject<Employee, long, EmployeeDTO>
         employee.FirstName = FirstName;
         employee.LastName = LastName;
         employee.PhoneNumber = PhoneNumber;
-        employee.Campus = Campus;
-        employee.Department = Department;
+        employee.CampusKey = CampusKey;
+        employee.DepartmentKey = DepartmentKey;
     }
 }
