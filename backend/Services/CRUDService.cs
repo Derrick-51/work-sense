@@ -18,7 +18,7 @@ public class CRUDService<TEntity, TKey> where TEntity : BaseModel<TEntity,TKey>,
     //
     // GET ALL
     //
-    public async Task<ServiceResult<List<TEntity>>> GetAll()
+    public virtual async Task<ServiceResult<List<TEntity>>> GetAll()
     {
         List<TEntity> entities = await DbContext
             .GetCollection<TEntity>()
@@ -35,7 +35,7 @@ public class CRUDService<TEntity, TKey> where TEntity : BaseModel<TEntity,TKey>,
     //
     // GET BY ID
     //
-    public async Task<ServiceResult<TEntity>> GetByKey(TKey key)
+    public virtual async Task<ServiceResult<TEntity>> GetByKey(TKey key)
     {
         // Null when not found
         TEntity? entity = await DbContext
@@ -55,7 +55,7 @@ public class CRUDService<TEntity, TKey> where TEntity : BaseModel<TEntity,TKey>,
     //
     // POST
     //
-    public async Task<ServiceResult<TEntity>> Post(TEntity entity)
+    public virtual async Task<ServiceResult<TEntity>> Post(TEntity entity)
     {
         TEntity newEntity = new TEntity();
         newEntity.UpdateFieldsUsing(entity);
@@ -75,7 +75,7 @@ public class CRUDService<TEntity, TKey> where TEntity : BaseModel<TEntity,TKey>,
     //
     // PUT
     //
-    public async Task<ServiceResult<TEntity>> Put(TEntity entity)
+    public virtual async Task<ServiceResult<TEntity>> Put(TEntity entity)
     {
         TEntity? existingEntity = await DbContext
             .GetCollection<TEntity>()
@@ -97,7 +97,7 @@ public class CRUDService<TEntity, TKey> where TEntity : BaseModel<TEntity,TKey>,
     //
     // DELETE
     //
-    public async Task<IServiceResult> Delete(TKey key)
+    public virtual async Task<IServiceResult> Delete(TKey key)
     {
         if (key is null)
             return ServiceResult.Failure(ResultError.BadRequest, "Null key argument");

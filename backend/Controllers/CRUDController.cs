@@ -20,7 +20,7 @@ public abstract class CRUDController<TEntity, TKey, TRequestDTO, TResponseDTO> :
     ////
     // GET ALL
     [HttpGet]
-    public async Task<ActionResult<List<TResponseDTO>>> GetAll()
+    public virtual async Task<ActionResult<List<TResponseDTO>>> GetAll()
     {
         ServiceResult<List<TEntity>> result = await CRUDService.GetAll();
 
@@ -51,8 +51,8 @@ public abstract class CRUDController<TEntity, TKey, TRequestDTO, TResponseDTO> :
 
     ////
     // GET ONE (ID)
-    [HttpGet("{id}")]
-    public async Task<ActionResult<TResponseDTO>> GetByKey(TKey key)
+    [HttpGet("{key}")]
+    public virtual async Task<ActionResult<TResponseDTO>> GetByKey(TKey key)
     {
         ServiceResult<TEntity> result = await CRUDService.GetByKey(key);
 
@@ -78,7 +78,7 @@ public abstract class CRUDController<TEntity, TKey, TRequestDTO, TResponseDTO> :
     ////
     // POST
     [HttpPost]
-    public async Task<IActionResult> Post(TRequestDTO requestDTO)
+    public virtual async Task<IActionResult> Post(TRequestDTO requestDTO)
     {
         // Convert to complete model for service compatibility
         TEntity newEntity = new TEntity();
@@ -110,7 +110,7 @@ public abstract class CRUDController<TEntity, TKey, TRequestDTO, TResponseDTO> :
     ////
     // PUT
     [HttpPut("{key}")]
-    public async Task<IActionResult> Put(TKey key, TRequestDTO requestDTO)
+    public virtual async Task<IActionResult> Put(TKey key, TRequestDTO requestDTO)
     {
         if (key is null)
             return BadRequest();
@@ -151,7 +151,7 @@ public abstract class CRUDController<TEntity, TKey, TRequestDTO, TResponseDTO> :
     ////
     // DELETE
     [HttpDelete("{key}")]
-    public async Task<IActionResult> Delete(TKey key)
+    public virtual async Task<IActionResult> Delete(TKey key)
     {
         IServiceResult result = await CRUDService.Delete(key);
 
