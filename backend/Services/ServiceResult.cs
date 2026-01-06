@@ -1,5 +1,3 @@
-using System.Diagnostics.Tracing;
-
 namespace WorkSense.Backend.Services.Results;
 
 public enum ResultError
