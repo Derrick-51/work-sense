@@ -1,9 +1,7 @@
-using Microsoft.EntityFrameworkCore.Diagnostics;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-
 namespace WorkSense.Backend.Models;
 
-
+// TTransferObject parameter used over ITransferObject
+// to be less ambiguous about return types in methods
 public interface ITransferObject<TEntity, TKey, TTransferObject>
 where TEntity : BaseModel<TEntity, TKey>, new()
 {
@@ -26,7 +24,7 @@ where TEntity : BaseModel<TEntity, TKey>, new()
     /// <summary>
     /// Updates entity with DTO properties.
     /// Gives DTO responsibility of updating entity with
-    ///     its custom properties.
+    /// its custom properties.
     /// </summary>
     /// <param name="entity">The original entity that the
     ///     DTO is based on</param>
