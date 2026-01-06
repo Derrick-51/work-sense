@@ -8,8 +8,7 @@ public class Attachment : BaseModel<Attachment, string>
     // PROPERTIES
     //
     
-    [Required]
-    public string Url => Key;
+    public string? Url => Key;
 
     [Required]
     public WorkOrder WorkOrder { get; set; } = null!;
