@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WorkSense.Backend.Models;
 
@@ -18,16 +19,24 @@ public class WorkOrder : BaseModel<WorkOrder, long>
     public bool IsOpen { get; set; } = true;
 
     [Required]
-    public Employee Requester { get; set; } = null!;
+    [ForeignKey(nameof(Employee))]
+    public long RequesterKey { get; set; } = default;
+    public Employee? Requester { get; set; }
 
+    [ForeignKey(nameof(Employee))]
     // Placeholder database record for unassigned work orders
-    public Employee Assignee { get; set; } = null!;
+    public long AssigneeKey { get; set; } = default;
+    public Employee? Assignee { get; set; }
 
     [Required]
-    public JobType JobType { get; set; } = null!;
+    [ForeignKey(nameof(JobType))]
+    public long JobTypeKey { get; set; } = default;
+    public JobType? JobType { get; set; }
 
     [Required]
-    public Location Location { get; set; } = null!;
+    [ForeignKey(nameof(Location))]
+    public long LocationKey { get; set; } = default;
+    public Location? Location { get; set; }
 
     public ICollection<WorkAction> WorkActions { get; } = new List<WorkAction>();
 

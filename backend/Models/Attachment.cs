@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WorkSense.Backend.Models;
 
@@ -11,7 +12,9 @@ public class Attachment : BaseModel<Attachment, string>
     public string? Url => Key;
 
     [Required]
-    public WorkOrder WorkOrder { get; set; } = null!;
+    [ForeignKey(nameof(WorkOrder))]
+    public long WorkOrderKey { get; set; }
+    public WorkOrder? WorkOrder { get; set; }
 
     //
     // CONSTRUCTORS

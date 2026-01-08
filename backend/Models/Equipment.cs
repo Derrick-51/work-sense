@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WorkSense.Backend.Models;
 
@@ -19,7 +20,9 @@ public class Equipment : BaseModel<Equipment, long>
     public DateOnly InstallDate { get; set; } = DateOnly.FromDateTime(DateTime.Now);
 
     [Required]
-    public Location Location { get; set; } = null!;
+    [ForeignKey(nameof(Location))]
+    public long LocationKey { get; set; } = default;
+    public Location? Location { get; set; }
 
     //
     // CONSTRUCTORS

@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WorkSense.Backend.Models;
 
@@ -12,7 +13,9 @@ public class Location : BaseModel<Location, long>
     public string Name { get; set; } = string.Empty;
 
     [Required]
-    public Building Building { get; set; } = null!;
+    [ForeignKey(nameof(Building))]
+    public long BuildingKey { get; set; } = default;
+    public Building? Building { get; set; }
 
     //
     // CONSTRUCTORS

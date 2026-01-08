@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WorkSense.Backend.Models;
 
@@ -12,7 +13,9 @@ public class JobType : BaseModel<JobType, long>
     public string Name { get; set; } = string.Empty;
 
     [Required]
-    public Department Department { get; set; } = null!;
+    [ForeignKey(nameof(Department))]
+    public long DepartmentKey { get; set; } = default;
+    public Department? Department { get; set; }
 
     //
     // CONSTRUCTORS

@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WorkSense.Backend.Models;
 
@@ -13,7 +14,9 @@ public class SupplyOrder : BaseModel<SupplyOrder, long>
     public string PartName { get; set; } = string.Empty;
 
     [Required]
-    public WorkAction WorkAction { get; set; } = null!;
+    [ForeignKey(nameof(WorkAction))]
+    public long WorkActionKey { get; set; } = default;
+    public WorkAction? WorkAction { get; set; }
 
     //
     // CONSTRUCTORS
