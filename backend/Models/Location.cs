@@ -36,6 +36,7 @@ public class Location : BaseModel<Location, long>
     {
         Key = location.Key;
         Name = location.Name;
+        BuildingKey = location.BuildingKey;
         Building = location.Building;
     }
 }

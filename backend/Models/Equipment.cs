@@ -46,6 +46,7 @@ public class Equipment : BaseModel<Equipment, long>
         Manufacturer = equipment.Manufacturer;
         Serial = equipment.Serial;
         InstallDate = equipment.InstallDate;
+        LocationKey = equipment.LocationKey;
         Location = equipment.Location;
     }
 }

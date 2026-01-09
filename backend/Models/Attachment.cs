@@ -34,6 +34,7 @@ public class Attachment : BaseModel<Attachment, string>
     public override void UpdateFieldsUsing(Attachment attachment)
     {
         Key = attachment.Key;
+        WorkOrderKey = attachment.WorkOrderKey;
         WorkOrder = attachment.WorkOrder;
     }
 }

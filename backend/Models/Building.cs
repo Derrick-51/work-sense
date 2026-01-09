@@ -34,6 +34,7 @@ public class Building : BaseModel<Building, long>
     public override void UpdateFieldsUsing(Building building)
     {
         Key = building.Key;
+        CampusKey = building.CampusKey;
         Campus = building.Campus;
     }
 }

@@ -66,9 +66,13 @@ public class WorkAction : BaseModel<WorkAction, long>
         Hours = workAction.Hours;
         PayRate = workAction.PayRate;
         ContractorName = workAction.ContractorName;
+        WorkOrderKey = workAction.WorkOrderKey;
         WorkOrder = workAction.WorkOrder;
+        EquipmentKey = workAction.EquipmentKey;
         Equipment = workAction.Equipment;
+        EmployeeKey = workAction.EmployeeKey;
         Employee = workAction.Employee;
+        CompanyKey = workAction.CompanyKey;
         Company = workAction.Company;
     }
 }

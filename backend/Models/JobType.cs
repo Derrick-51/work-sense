@@ -36,6 +36,7 @@ public class JobType : BaseModel<JobType, long>
     {
         Key = jobType.Key;
         Name = jobType.Name;
+        DepartmentKey = jobType.DepartmentKey;
         Department = jobType.Department;
     }
 }

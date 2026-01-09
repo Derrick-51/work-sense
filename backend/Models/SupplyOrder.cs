@@ -38,6 +38,7 @@ public class SupplyOrder : BaseModel<SupplyOrder, long>
         Key = supplyOrder.Key;
         Cost = supplyOrder.Cost;
         PartName = supplyOrder.PartName;
+        WorkActionKey = supplyOrder.WorkActionKey;
         WorkAction = supplyOrder.WorkAction;
     }
 }

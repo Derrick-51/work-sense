@@ -64,7 +64,9 @@ public class WorkOrder : BaseModel<WorkOrder, long>
         RequestTimeStamp = workOrder.RequestTimeStamp;
         DueTimeStamp = workOrder.DueTimeStamp;
         IsOpen = workOrder.IsOpen;
+        RequesterKey = workOrder.RequesterKey;
         Requester = workOrder.Requester;
+        AssigneeKey = workOrder.AssigneeKey;
         Assignee = workOrder.Assignee;
         JobType = workOrder.JobType;
         Location = workOrder.Location;
