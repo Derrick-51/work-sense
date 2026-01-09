@@ -5,44 +5,13 @@ using WorkSense.Backend.Services;
 using WorkSense.Backend.Services.Results;
 
 
-[ApiController] ;
-[Route("api/[controller]")]
-public class CompanyController : ControllerBase
+[ApiController]
+[Route("api/companies")]
+public class CompanyController : CRUDController<Company, long, CompanyDTO, CompanyDTO>
 {
-    // private readonly CompanyService CompanyService;
-
-    // public CompanyController(CompanyService companyService)
-    // {
-    //      CompanyService = companyService;
-    // }
-
-    [HttpGet]
-    public async Task<ActionResult<List<Company>>> GetAll()
+    public CompanyController(CompanyService companyService)
+        : base(companyService)
     {
-        return NoContent();
-    }
-
-    [HttpGet("{id}")]
-    public async Task<ActionResult<List<Company>>> GetById(long id)
-    {
-        return NoContent();
-    }
-
-    [HttpPost()]
-    public async Task<IActionResult> Post(Company company)
-    {
-        return NoContent();
-    }
-
-    [HttpPut("{id}")]
-    public async Task<IActionResult> Put(long id, Company company)
-    {
-        return NoContent();
-    }
-
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> Delete(long id)
-    {
-        return NoContent();
+        
     }
 }

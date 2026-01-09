@@ -5,44 +5,13 @@ using WorkSense.Backend.Services;
 using WorkSense.Backend.Services.Results;
 
 
-[ApiController] ;
-[Route("api/[controller]")]
-public class WorkOrderController : ControllerBase
+[ApiController]
+[Route("api/workorders")]
+public class WorkOrderController : CRUDController<WorkOrder, long, WorkOrderDTO, WorkOrderDTO>
 {
-    // private readonly WorkOrderService WorkOrderService;
-
-    // public WorkOrderController(WorkOrderService workOrderService)
-    // {
-    //      WorkOrderService = workOrderService;
-    // }
-
-    [HttpGet]
-    public async Task<ActionResult<List<WorkOrder>>> GetAll()
+    public WorkOrderController(WorkOrderService workOrderService)
+        : base(workOrderService)
     {
-        return NoContent();
-    }
-
-    [HttpGet("{id}")]
-    public async Task<ActionResult<List<WorkOrder>>> GetById(long id)
-    {
-        return NoContent();
-    }
-
-    [HttpPost()]
-    public async Task<IActionResult> Post(WorkOrder workOrder)
-    {
-        return NoContent();
-    }
-
-    [HttpPut("{id}")]
-    public async Task<IActionResult> Put(long id, WorkOrder workOrder)
-    {
-        return NoContent();
-    }
-
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> Delete(long id)
-    {
-        return NoContent();
+        
     }
 }
