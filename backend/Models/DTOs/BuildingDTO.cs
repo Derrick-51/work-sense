@@ -8,7 +8,7 @@ public class BuildingDTO : ITransferObject<Building, long, BuildingDTO>
     public long Key { get; set; }
 
     [Required]
-    public long CampusKey { get; set; }
+    public long CampusKey { get; set; } = default;
 
     public BuildingDTO() {}
 
