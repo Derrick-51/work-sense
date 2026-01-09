@@ -13,9 +13,18 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Inject custom services
-builder.Services.AddScoped<EmployeeService, EmployeeService>();
-builder.Services.AddScoped<DepartmentService, DepartmentService>();
+builder.Services.AddScoped<AttachmentService, AttachmentService>();
+builder.Services.AddScoped<BuildingService, BuildingService>();
 builder.Services.AddScoped<CampusService, CampusService>();
+builder.Services.AddScoped<CompanyService, CompanyService>();
+builder.Services.AddScoped<DepartmentService, DepartmentService>();
+builder.Services.AddScoped<EmployeeService, EmployeeService>();
+builder.Services.AddScoped<EquipmentService, EquipmentService>();
+builder.Services.AddScoped<JobTypeService, JobTypeService>();
+builder.Services.AddScoped<LocationService, LocationService>();
+builder.Services.AddScoped<SupplyOrderService, SupplyOrderService>();
+builder.Services.AddScoped<WorkActionService, WorkActionService>();
+builder.Services.AddScoped<WorkOrderService, WorkOrderService>();
 
 // Database connection configuration
 // Temporary connection string for development
